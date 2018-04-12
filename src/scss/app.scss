@@ -1,0 +1,79 @@
+@import 'normalize';
+
+@import 'palette';
+ :root {
+  --board-size: 3;
+}
+@mixin item-background($max,$color) {
+  @for $i from 0 through $max {
+    &-#{$i} {
+      $percent: alpha($color) * (30%/($i+1));
+      $opaque: opacify($color, 1);
+      $solid-color: lighten($color, $percent);
+      background-color: $solid-color !important;
+    }
+  }
+}
+
+.contenedor {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  background-color: $color5;
+}
+
+.menu {
+  width: 30vw;
+  height: 100vh;
+  background-color: $color4;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+  }
+
+  .settings {
+    display: block;
+    margin: 1.5rem;
+    [class*="btn-outline"]{
+      background: white;
+    }
+  }
+}
+
+#kenken {
+  width: 70vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .board {
+    background-color: blue;
+    width: 100vh;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(var(--board-size),1fr);
+    grid-template-rows: repeat(var(--board-size),1fr);
+
+    .node {
+      font-size: 4rem;
+      position: relative;
+      display: flex;
+
+      .result {
+        font-size: 1rem;
+        position: absolute;
+      }
+
+      input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        text-align: center;
+      }
+      @include item-background(5,$color2);
+    }
+  }
+}
